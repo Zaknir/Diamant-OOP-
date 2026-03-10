@@ -1,0 +1,76 @@
+:root { 
+    --bg: #ffffff; 
+    --text: #000000; 
+    --border: #333333; 
+    --highlight: #eeeeee; 
+}
+
+body { 
+    font-family: sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    line-height: 1.5; 
+    padding: 20px; 
+}
+
+#game-container { max-width: 800px; margin: auto; }
+
+.main-controls { 
+    border: 3px solid var(--border); 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    background: #f9f9f9; 
+}
+
+.setup-box, .info-section, .player-list, #path { 
+    border: 2px solid var(--border); 
+    padding: 15px; 
+    margin-bottom: 20px; 
+}
+
+.player-row { border-bottom: 1px solid var(--border); padding: 10px 0; }
+.active-turn { background: var(--highlight); font-weight: bold; border: 2px solid var(--text); padding: 5px; }
+.out { color: #666666; font-style: italic; }
+
+button { 
+    padding: 18px 28px; 
+    font-size: 1.3rem; 
+    cursor: pointer; 
+    margin: 10px 5px; 
+    border: 2px solid var(--text); 
+    background: var(--bg); 
+    color: var(--text); 
+    font-weight: bold; 
+}
+
+button:hover:not(:disabled) { background: var(--text); color: var(--bg); }
+.hidden { display: none; }
+
+#message { 
+    font-size: 1.4rem; 
+    font-weight: bold; 
+    margin-bottom: 20px; 
+    white-space: pre-line; 
+    outline: none; 
+}
+
+.status-buttons-row { 
+    margin-top: 10px; 
+    border-top: 1px dashed var(--border); 
+    padding-top: 10px; 
+}
+
+input[type="text"], select { 
+    font-size: 1.1rem; 
+    padding: 8px; 
+    margin: 5px 0; 
+    border: 1px solid var(--border); 
+}
+
+.selection-preview { 
+    margin: 15px 0; 
+    font-weight: bold; 
+    color: #d9534f; 
+    font-size: 1.2rem; 
+    min-height: 1.5em; 
+}
