@@ -42,13 +42,11 @@ class UIManager {
     constructor() { this.msgEl = document.getElementById('message'); }
     display(text) { this.msgEl.innerText = text; this.msgEl.focus(); }
     
-    updateBoard(players, path, round, highlightId) {
-        // Visualizzazione automatica disabilitata come richiesto
-    }
+    updateBoard(players, path, round, highlightId) {}
 
     announcePathStatus(path, round) {
         let text = `Grotta ${round} di 5\n`;
-        text += path.length === 0 ? "Percorso vuoto.\n" : "Stato Percorso:\n";
+        text += (path.length === 0) ? "Percorso vuoto.\n" : "Stato Percorso:\n";
         path.forEach((c, i) => {
             let info = (c.type === 'treasure') ? `Rubini: ${c.remainder}` : (c.type === 'artifact' ? `Art (${c.remainder})` : `Pericolo: ${c.name}`);
             text += `${i+1}. ${info}\n`;
