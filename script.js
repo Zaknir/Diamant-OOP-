@@ -70,9 +70,10 @@ class UIManager {
 
     updateBoard(players, path, round, highlightId) {
         const activeCount = players.filter(p => p.inCave).length;
-        document.getElementById('round-status-text').innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
+        const statusEl = document.getElementById('round-status-text');
+        if (statusEl) statusEl.innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
         
-        // RIGHE COMMENTATE PER EVITARE L'AGGIORNAMENTO AUTOMATICO DELLE LISTE VISIVE
+        // COMMENTA QUESTE RIGHE PER NASCONDERE L'AGGIORNAMENTO AUTOMATICO
         /*
         document.getElementById('player-list-content').innerHTML = players.map(p => `
             <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
