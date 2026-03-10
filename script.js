@@ -162,9 +162,11 @@ class Game {
             leavers.forEach(p => p.bank());
         }
         if (this.players.every(p => !p.inCave)) return this.endRound(`Round ${this.round} concluso.`);
+        
         const card = this.deck.draw();
         this.currentPath.push(card);
         const stayers = this.players.filter(p => p.inCave);
+        
         if (card.type === 'treasure') {
             let share = Math.floor(card.value / stayers.length);
             card.remainder = card.value % stayers.length;
@@ -174,6 +176,7 @@ class Game {
             this.deck.removeArtifact(card.value);
             this.ui.display(`Artefatto trovato (Valore: ${card.value}).`);
         } else {
+            // Logica trappole con conteggio
             if (this.activeTrapsInRound.includes(card.name)) {
                 this.deck.removeTrap(card.name);
                 stayers.forEach(p => p.pocket = 0);
@@ -192,26 +195,4 @@ class Game {
         document.querySelectorAll('#controls > div').forEach(d => d.classList.add('hidden'));
         if (this.round > 5) {
             this.players.sort((a,b) => b.chest - a.chest);
-            this.ui.display(msg + `\nVince ${this.players[0].name} con ${this.players[0].chest} rubini.`);
-            document.getElementById('restart-container').classList.remove('hidden');
-        } else { document.getElementById('next-round-container').classList.remove('hidden'); }
-    }
-}
-
-let game;
-function initSetup() {
-    const count = parseInt(document.getElementById('player-select').value);
-    const container = document.getElementById('name-inputs');
-    container.innerHTML = '';
-    for (let i = 1; i <= count; i++) { container.innerHTML += `<input type="text" id="name-p${i}" placeholder="Giocatore ${i}"><br>`; }
-    document.getElementById('setup').classList.add('hidden');
-    document.getElementById('name-setup').classList.remove('hidden');
-}
-function startGame() {
-    const names = Array.from(document.querySelectorAll('#name-inputs input')).map(i => i.value.trim() || i.placeholder);
-    game = new Game(names);
-    document.getElementById('name-setup').classList.add('hidden');
-    document.getElementById('interaction-zone').classList.remove('hidden');
-    document.getElementById('board').classList.remove('hidden');
-    game.startRound();
-}
+            this.ui.display(msg + `\nVince ${this.players[0].name} con ${this.players
