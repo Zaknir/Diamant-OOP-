@@ -251,7 +251,7 @@ function initSetup() {
     const container = document.getElementById('name-inputs');
     container.innerHTML = '';
     for (let i = 1; i <= count; i++) {
-        container.innerHTML += `<input type="text" id="name-p${i}" placeholder="Nome Giocatore ${i}"><br>`;
+        container.innerHTML += `<input type="text" id="name-p${i}" placeholder="Giocatore ${i}"><br>`;
     }
     document.getElementById('setup').classList.add('hidden');
     document.getElementById('name-setup').classList.remove('hidden');
