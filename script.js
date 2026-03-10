@@ -44,19 +44,26 @@ class UIManager {
     
     updateBoard(players, path, round, highlightId) {
         const activeCount = players.filter(p => p.inCave).length;
-        document.getElementById('round-status-text').innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
+        const roundTextEl = document.getElementById('round-status-text');
+        if (roundTextEl) roundTextEl.innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
         
-        document.getElementById('player-list-content').innerHTML = players.map(p => `
-            <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
-                ${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}
-            </div>
-        `).join('');
+        const pContent = document.getElementById('player-list-content');
+        if (pContent) {
+            pContent.innerHTML = players.map(p => `
+                <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
+                    ${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}
+                </div>
+            `).join('');
+        }
 
-        document.getElementById('path-content').innerHTML = path.map(card => `
-            <div style="border: 2px solid black; padding: 10px; margin: 5px; display: inline-block;">
-                ${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}
-            </div>
-        `).join('');
+        const pathContent = document.getElementById('path-content');
+        if (pathContent) {
+            pathContent.innerHTML = path.map(card => `
+                <div style="border: 2px solid black; padding: 10px; margin: 5px; display: inline-block;">
+                    ${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}
+                </div>
+            `).join('');
+        }
     }
 
     announcePathStatus(path, round) {
@@ -176,7 +183,6 @@ class Game {
             this.deck.removeArtifact(card.value);
             this.ui.display(`Artefatto trovato (Valore: ${card.value}).`);
         } else {
-            // Logica trappole con conteggio
             if (this.activeTrapsInRound.includes(card.name)) {
                 this.deck.removeTrap(card.name);
                 stayers.forEach(p => p.pocket = 0);
@@ -195,4 +201,28 @@ class Game {
         document.querySelectorAll('#controls > div').forEach(d => d.classList.add('hidden'));
         if (this.round > 5) {
             this.players.sort((a,b) => b.chest - a.chest);
-            this.ui.display(msg + `\nVince ${this.players[0].name} con ${this.players
+            this.ui.display(msg + `\nVince ${this.players[0].name} con ${this.players[0].chest} rubini.`);
+            document.getElementById('restart-container').classList.remove('hidden');
+        } else { document.getElementById('next-round-container').classList.remove('hidden'); }
+    }
+}
+
+let game;
+function initSetup() {
+    const count = parseInt(document.getElementById('player-select').value);
+    const container = document.getElementById('name-inputs');
+    container.innerHTML = '';
+    for (let i = 1; i <= count; i++) { 
+        container.innerHTML += `<input type="text" id="name-p${i}" placeholder="Giocatore ${i}"><br>`; 
+    }
+    document.getElementById('setup').classList.add('hidden');
+    document.getElementById('name-setup').classList.remove('hidden');
+}
+function startGame() {
+    const names = Array.from(document.querySelectorAll('#name-inputs input')).map(i => i.value.trim() || i.placeholder);
+    game = new Game(names);
+    document.getElementById('name-setup').classList.add('hidden');
+    document.getElementById('interaction-zone').classList.remove('hidden');
+    document.getElementById('board').classList.remove('hidden');
+    game.startRound();
+}
