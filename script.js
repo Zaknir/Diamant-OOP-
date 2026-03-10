@@ -72,6 +72,8 @@ class UIManager {
         const activeCount = players.filter(p => p.inCave).length;
         document.getElementById('round-status-text').innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
         
+        // RIGHE COMMENTATE PER EVITARE L'AGGIORNAMENTO AUTOMATICO DELLE LISTE VISIVE
+        /*
         document.getElementById('player-list-content').innerHTML = players.map(p => `
             <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
                 ${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}
@@ -83,6 +85,7 @@ class UIManager {
                 ${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}
             </div>
         `).join('');
+        */
     }
 
     announcePathStatus(path) {
@@ -182,7 +185,6 @@ class Game {
     executeTurnLogic() {
         document.getElementById('summary-container').classList.add('hidden');
         
-        // Risoluzione uscite
         const leavers = this.players.filter(p => p.inCave && this.roundDecisions.find(d => d.playerId === p.id)?.action === 'leave');
         if (leavers.length > 0) {
             this.currentPath.forEach(card => {
@@ -201,7 +203,6 @@ class Game {
 
         if (this.players.every(p => !p.inCave)) return this.endRound(`Round ${this.round} concluso.`);
 
-        // Pesca carta
         const card = this.deck.draw();
         this.currentPath.push(card);
         const stayers = this.players.filter(p => p.inCave);
@@ -244,7 +245,6 @@ class Game {
     }
 }
 
-// Global scope functions per bottoni HTML
 let game;
 function initSetup() {
     const count = parseInt(document.getElementById('player-select').value);
