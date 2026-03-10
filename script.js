@@ -41,33 +41,27 @@ class Deck {
 class UIManager {
     constructor() { this.msgEl = document.getElementById('message'); }
     display(text) { this.msgEl.innerText = text; this.msgEl.focus(); }
+    
     updateBoard(players, path, round, highlightId) {
-        // Aggiornamento Round/Esploratori disabilitato
-        /*
-        const activeCount = players.filter(p => p.inCave).length;
-        const statusEl = document.getElementById('round-status-text');
-        if (statusEl) statusEl.innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
-        */
-
-        // Aggiornamento liste rimosso per privacy
-        /*
-        const pList = document.getElementById('player-list-content');
-        if (pList) pList.innerHTML = players.map(p => `<div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}</div>`).join('');
-        const pathContent = document.getElementById('path-content');
-        if (pathContent) pathContent.innerHTML = path.map(card => `<div style="border: 2px solid black; padding: 10px; margin: 5px; display: inline-block;">${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}</div>`).join('');
-        */
+        // Visualizzazione automatica disabilitata come richiesto
     }
-    announcePathStatus(path) {
-        let text = path.length === 0 ? "Percorso vuoto.\n" : "Stato Percorso:\n";
+
+    announcePathStatus(path, round) {
+        let text = `Grotta ${round} di 5\n`;
+        text += path.length === 0 ? "Percorso vuoto.\n" : "Stato Percorso:\n";
         path.forEach((c, i) => {
             let info = (c.type === 'treasure') ? `Rubini: ${c.remainder}` : (c.type === 'artifact' ? `Art (${c.remainder})` : `Pericolo: ${c.name}`);
             text += `${i+1}. ${info}\n`;
         });
         this.display(text);
     }
+
     announcePlayersStatus(players) {
         let text = "Stato Giocatori:\n";
-        players.forEach(p => text += `${p.name}: Tasca ${p.pocket}, Baule ${p.chest}\n`);
+        players.forEach(p => {
+            let location = p.inCave ? "In Grotta" : "Al Campo";
+            text += `${p.name}: Tasca ${p.pocket}, Baule ${p.chest} - ${location}\n`;
+        });
         this.display(text);
     }
 }
