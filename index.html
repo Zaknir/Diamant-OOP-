@@ -10,7 +10,7 @@
     <div id="game-container" role="main">
         <h1>Diamant</h1>
 
-        <div id="interaction-zone" class="main-controls">
+        <div id="interaction-zone" class="main-controls hidden">
             <div id="message" role="alert" aria-live="assertive" tabindex="-1">Benvenuti.</div>
             
             <div id="controls">
@@ -67,7 +67,9 @@
         <div id="board" class="hidden">
             <div class="info-section"><p id="round-status-text"></p></div>
             
-            </div>
+            <div class="player-list" style="display:none"><h2>Giocatori:</h2><div id="player-list-content"></div></div>
+            <div id="path" role="region" style="display:none"><h2>Percorso:</h2><div id="path-content"></div></div>
+        </div>
         
     </div>
 
