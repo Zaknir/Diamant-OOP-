@@ -70,10 +70,13 @@ class UIManager {
 
     updateBoard(players, path, round, highlightId) {
         const activeCount = players.filter(p => p.inCave).length;
+        
+        // RIGA AGGIORNAMENTO ROUND COMMENTATA
+        /*
         const statusEl = document.getElementById('round-status-text');
         if (statusEl) statusEl.innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
+        */
         
-        // COMMENTA QUESTE RIGHE PER NASCONDERE L'AGGIORNAMENTO AUTOMATICO
         /*
         document.getElementById('player-list-content').innerHTML = players.map(p => `
             <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
