@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamant - OOP Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container" role="main">
+        <h1>Diamant</h1>
+
+        <div id="interaction-zone" class="main-controls hidden">
+            <div id="message" role="alert" aria-live="assertive" tabindex="-1">Benvenuti.</div>
+            
+            <div id="controls">
+                <div id="action-buttons" class="hidden">
+                    <button onclick="game.selectAction('continue', 'VAI AVANTI')">VAI AVANTI</button>
+                    <button onclick="game.selectAction('leave', 'ESCI DALLA GROTTA')">ESCI DALLA GROTTA</button>
+                    <div id="selection-text" class="selection-preview"></div>
+                    <button id="btn-final-confirm" class="hidden" onclick="game.confirmDecision()" style="background: #000; color: #fff;">Conferma Scelta</button>
+                </div>
+
+                <div id="confirm-container" class="hidden">
+                    <button onclick="game.handleTransition()">Prosegui</button>
+                </div>
+
+                <div id="pass-device-container" class="hidden">
+                    <button onclick="game.prepareTurnChoices()">Prosegui</button>
+                </div>
+
+                <div id="summary-container" class="hidden">
+                    <button onclick="game.executeTurnLogic()">Prosegui</button>
+                </div>
+
+                <div id="next-round-container" class="hidden">
+                    <button onclick="game.startRound()">INIZIA PROSSIMO ROUND</button>
+                </div>
+
+                <div id="restart-container" class="hidden">
+                    <button onclick="location.reload()">GIOCA ANCORA</button>
+                </div>
+
+                <div id="status-container" class="hidden status-buttons-row">
+                    <button onclick="game.ui.announcePathStatus(game.currentPath)">Stato percorso</button>
+                    <button onclick="game.ui.announcePlayersStatus(game.players)">Stato giocatori</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="setup" class="setup-box">
+            <h2>Configurazione Partita</h2>
+            <label for="player-select">Numero giocatori:</label>
+            <select id="player-select">
+                <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+            </select>
+            <button onclick="initSetup()">Conferma</button>
+        </div>
+
+        <div id="name-setup" class="setup-box hidden">
+            <h2>Inserite i nomi</h2>
+            <div id="name-inputs"></div>
+            <button onclick="startGame()">Inizia</button>
+        </div>
+
+        <div id="board" class="hidden">
+            <div class="info-section"><p id="round-status-text"></p></div>
+            <div class="player-list"><h2>Giocatori:</h2><div id="player-list-content"></div></div>
+            <div id="path" role="region"><h2>Percorso:</h2><div id="path-content"></div></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
