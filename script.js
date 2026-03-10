@@ -42,14 +42,14 @@ class UIManager {
     constructor() { this.msgEl = document.getElementById('message'); }
     display(text) { this.msgEl.innerText = text; this.msgEl.focus(); }
     updateBoard(players, path, round, highlightId) {
-        // Logica Round/Esploratori rimossa come richiesto
+        // Aggiornamento Round/Esploratori disabilitato
         /*
         const activeCount = players.filter(p => p.inCave).length;
         const statusEl = document.getElementById('round-status-text');
         if (statusEl) statusEl.innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
         */
 
-        // Logica Liste Giocatori e Percorso rimossa come richiesto
+        // Aggiornamento liste rimosso per privacy
         /*
         const pList = document.getElementById('player-list-content');
         if (pList) pList.innerHTML = players.map(p => `<div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}</div>`).join('');
