@@ -28,6 +28,10 @@ body {
     margin-bottom: 20px; 
 }
 
+.info-section {
+    border: none;
+}
+
 .player-row { border-bottom: 1px solid var(--border); padding: 10px 0; }
 .active-turn { background: var(--highlight); font-weight: bold; border: 2px solid var(--text); padding: 5px; }
 .out { color: #666666; font-style: italic; }
