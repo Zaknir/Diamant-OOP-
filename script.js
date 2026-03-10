@@ -42,7 +42,22 @@ class UIManager {
     constructor() { this.msgEl = document.getElementById('message'); }
     display(text) { this.msgEl.innerText = text; this.msgEl.focus(); }
     
-    updateBoard(players, path, round, highlightId) {}
+    updateBoard(players, path, round, highlightId) {
+        const activeCount = players.filter(p => p.inCave).length;
+        document.getElementById('round-status-text').innerText = `Round: ${round}/5. Esploratori: ${activeCount}.`;
+        
+        document.getElementById('player-list-content').innerHTML = players.map(p => `
+            <div class="player-row ${p.id === highlightId ? 'active-turn' : ''} ${!p.inCave ? 'out' : ''}">
+                ${p.name} - Tasca: ${p.pocket}, Baule: ${p.chest}
+            </div>
+        `).join('');
+
+        document.getElementById('path-content').innerHTML = path.map(card => `
+            <div style="border: 2px solid black; padding: 10px; margin: 5px; display: inline-block;">
+                ${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}
+            </div>
+        `).join('');
+    }
 
     announcePathStatus(path, round) {
         let text = `Grotta ${round} di 5\n`;
@@ -162,10 +177,10 @@ class Game {
             if (this.activeTrapsInRound.includes(card.name)) {
                 this.deck.removeTrap(card.name);
                 stayers.forEach(p => p.pocket = 0);
-                return this.endRound(`TRAPPOLA: ${card.name}! Round finito.`);
+                return this.endRound(`TRAPPOLA (Seconda volta): ${card.name}! Round finito.`);
             }
             this.activeTrapsInRound.push(card.name);
-            this.ui.display(`Pericolo: ${card.name}.`);
+            this.ui.display(`Pericolo (Prima volta): ${card.name}.`);
         }
         this.ui.updateBoard(this.players, this.currentPath, this.round);
         document.getElementById('confirm-container').classList.remove('hidden');
