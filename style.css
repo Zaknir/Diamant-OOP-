@@ -1,80 +1,282 @@
-:root { 
-    --bg: #ffffff; 
-    --text: #000000; 
-    --border: #333333; 
-    --highlight: #eeeeee; 
+:root {
+  --bg: #DBCFE2;
+  --surface: antiquewhite;
+  --text: #424464;
+  --field: #E6DCEB;
+  --hover: #736754;
+  --border: #424464;
+  --highlight: #F5D1D1;
+  --muted: #666666;
 }
 
-body { 
-    font-family: sans-serif; 
-    background: var(--bg); 
-    color: var(--text); 
-    line-height: 1.5; 
-    padding: 20px; 
+html {
+  scroll-behavior: smooth;
 }
 
-#game-container { max-width: 800px; margin: auto; }
-
-.main-controls { 
-    border: 3px solid var(--border); 
-    padding: 20px; 
-    margin-bottom: 20px; 
-    background: #f9f9f9; 
+* {
+  box-sizing: border-box;
 }
 
-.setup-box, .player-list, #path { 
-    border: 2px solid var(--border); 
-    padding: 15px; 
-    margin-bottom: 20px; 
+body {
+  background-color: var(--bg);
+  margin: 0;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  word-spacing: 0.10em;
+  text-align: left;
+}
+
+#game-container {
+  max-width: 70ch;
+  margin: 0 auto;
+}
+
+header,
+section,
+footer,
+.main-controls,
+.setup-box,
+.player-list,
+#path {
+  background-color: var(--surface);
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+h2 {
+  line-height: 1.25;
+}
+
+button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  background-color: var(--field);
+  color: var(--text);
+  border: solid 2px var(--border);
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 6px 5px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--hover);
+  color: var(--surface);
+  border-color: var(--hover);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--hover);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.main-controls {
+  margin-bottom: 20px;
+}
+
+#message {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  white-space: pre-line;
+  outline: none;
+}
+
+#controls {
+  margin-top: 5px;
+}
+
+.status-buttons-row {
+  margin-top: 15px;
+  border-top: 1px dashed var(--border);
+  padding-top: 15px;
+}
+
+.setup-box label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0 0 15px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--field);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+#name-inputs input[type="text"] {
+  margin-bottom: 8px;
 }
 
 .info-section {
-    border: none;
+  background-color: var(--field);
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
 
-.player-row { border-bottom: 1px solid var(--border); padding: 10px 0; }
-.active-turn { background: var(--highlight); font-weight: bold; border: 2px solid var(--text); padding: 5px; }
-.out { color: #666666; font-style: italic; }
-
-button { 
-    padding: 18px 28px; 
-    font-size: 1.3rem; 
-    cursor: pointer; 
-    margin: 10px 5px; 
-    border: 2px solid var(--text); 
-    background: var(--bg); 
-    color: var(--text); 
-    font-weight: bold; 
+.info-section p {
+  margin: 0;
+  font-weight: bold;
 }
 
-button:hover:not(:disabled) { background: var(--text); color: var(--bg); }
-.hidden { display: none; }
-
-#message { 
-    font-size: 1.4rem; 
-    font-weight: bold; 
-    margin-bottom: 20px; 
-    white-space: pre-line; 
-    outline: none; 
+.player-list {
+  margin-bottom: 10px;
 }
 
-.status-buttons-row { 
-    margin-top: 10px; 
-    border-top: 1px dashed var(--border); 
-    padding-top: 10px; 
+.player-list h2,
+#path h2 {
+  margin-bottom: 12px;
 }
 
-input[type="text"], select { 
-    font-size: 1.1rem; 
-    padding: 8px; 
-    margin: 5px 0; 
-    border: 1px solid var(--border); 
+.player-row {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 5px;
 }
 
-.selection-preview { 
-    margin: 15px 0; 
-    font-weight: bold; 
-    color: #d9534f; 
-    font-size: 1.2rem; 
-    min-height: 1.5em; 
+.player-row:last-child {
+  border-bottom: none;
+}
+
+.active-turn {
+  background-color: var(--highlight);
+  font-weight: bold;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 10px;
+  margin: 4px 0;
+}
+
+.out {
+  color: var(--muted);
+  font-style: italic;
+}
+
+#path-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.path-card {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  margin: 0;
+  display: inline-block;
+  border-radius: 10px;
+  background-color: var(--field);
+  font-weight: bold;
+}
+
+.selection-preview {
+  margin: 15px 0;
+  font-weight: bold;
+  color: var(--hover);
+  font-size: 1.1rem;
+  min-height: 1.5em;
+}
+
+#btn-final-confirm {
+  background-color: var(--field) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+#btn-final-confirm:hover:not(:disabled) {
+  background-color: var(--hover) !important;
+  color: var(--surface) !important;
+  border-color: var(--hover) !important;
+}
+
+@media (max-width: 800px) {
+  body {
+    padding: 5px;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    word-spacing: 0.06em;
+  }
+
+  #game-container {
+    width: 100%;
+  }
+
+  header,
+  section,
+  footer,
+  .main-controls,
+  .setup-box,
+  .player-list,
+  #path {
+    padding: 15px;
+    margin: 7px 0;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  #message {
+    font-size: 1.1rem;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 11px 15px;
+  }
+
+  #path-content {
+    display: block;
+  }
+
+  .path-card {
+    display: block;
+    margin-bottom: 7px;
+  }
 }
