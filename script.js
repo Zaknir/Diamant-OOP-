@@ -59,7 +59,7 @@ class UIManager {
         const pathContent = document.getElementById('path-content');
         if (pathContent) {
             pathContent.innerHTML = path.map(card => `
-                <div style="border: 2px solid black; padding: 10px; margin: 5px; display: inline-block;">
+                <div class="path-card">
                     ${card.type === 'treasure' ? 'Rubini: ' + card.remainder : (card.type === 'artifact' ? 'Art: ' + card.remainder : card.name)}
                 </div>
             `).join('');
